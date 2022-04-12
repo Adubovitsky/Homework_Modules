@@ -2,7 +2,7 @@
 import os
 import shutil
 import sys
-from victory import game
+from victory import game_victorina
 import Bank_account
 
 while True:
@@ -49,7 +49,7 @@ while True:
         print(sys.copyright)
     elif choice == 9:
         print('Игра Викторина!')
-        game()
+        game_victorina()
     elif choice == 10:
         Bank_account.bank_account()
     elif choice == 11:
