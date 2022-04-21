@@ -8,7 +8,7 @@ def check_numbers(x): #Функция проверяет является ли �
     else:
         return False
 
-def write_to_file(file,data):
+def write_to_file(file,data):# Функция преобразует данные в формат строки и записывает в файл
     f=open(file,"w")
     f.write(str(data))
     f.close()
@@ -29,12 +29,8 @@ def make_folderlist(path): #Функция формирует список па�
             folder_list.append(i)
     return folder_list
 
-
 def remove_symbols(string, symbols): #Функция удаляет некоторые символы строки
     for i in string:
         if i in symbols:
             string = string.replace(i,"")
     return string
-
-
-

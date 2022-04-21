@@ -63,7 +63,6 @@ def bank_account():
             deposit_amount = int(deposit_amount_str)
             account_saldo += deposit_amount
             Functions.write_to_file(FILE_ACCOUNT,account_saldo)
-
         elif choice == '2':
             purchase_amount = int(input("Введите сумму покупки "))
             if purchase_amount <= account_saldo:

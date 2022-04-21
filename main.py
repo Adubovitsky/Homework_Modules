@@ -37,15 +37,9 @@ while True:
     elif choice == 5: #Посмотреть только папки
         path = os.getcwd()
         print (Functions.make_folderlist(path))
-
     elif choice == 6: #Посмотреть только файлы
         path = os.getcwd()
         print (Functions.make_filelist(path))
-        # file_list=[]
-        # for i in os.listdir():
-        #     if os.path.isfile(i)==True:
-        #         file_list.append(i)
-        # print(file_list)
     elif choice == 7: #Эаписать перечень файлов и папок в файл listdir.txt
         path = os.getcwd()
         file_list = str(Functions.make_filelist(path))

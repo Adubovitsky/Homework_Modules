@@ -23,14 +23,14 @@ def test_correctanswer():
     Birthdays = {"Александр Сергеевич Пушкин": "26.05.1799",  "Михаил Юрьевич Лермонтов":"15.10.1814" }
     assert correct_answer(Birthdays,"Александр Сергеевич Пушкин") == ("двадцать шестое", "мая", "1799")
 
-def test_writetofile():
+def test_writetofile(): # Проверка записи данных с помощью фунцкции write_to_file
     testfile = "tf.txt"
     Functions.write_to_file(testfile,500)
     with open(testfile,"r") as f:
         assert f.read()=="500"
     os.remove(testfile)
 
-def test_pickle():
+def test_pickle(): # Проверка записи в файл и чтения из файла в формате байтов
     shopping_report ={"food": 100, "cloth": 300, "travel": 250}
     testfile = "testfile.txt"
     with open(testfile,"wb") as f:
@@ -39,7 +39,7 @@ def test_pickle():
         assert pickle.load(f) == shopping_report
     os.remove(testfile)
 
-def test_removesymbols():
-    text = "Hello?? <world%^. It's@@ me"
+def test_removesymbols(): # Проверка функции, которая удаляет ненужные символы в тексте
+    text = "H!el@l^o?? <w@or%ld%^. I^t's@@ me"
     symbols = ["?","!","%","@","<","^"]
     assert Functions.remove_symbols(text,symbols) == "Hello world. It's me"
