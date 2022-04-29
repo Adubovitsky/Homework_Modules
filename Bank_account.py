@@ -33,10 +33,24 @@
 
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
+import os
+import pickle
+import Functions
 
 def bank_account():
+    FILE_ACCOUNT = "account_balance.txt"
+    if os.path.exists(FILE_ACCOUNT):
+        f=open(FILE_ACCOUNT,"r")
+        account_saldo = int(f.read())  # Остаток на счете
+        f.close()
+    else:
+        account_saldo = 0
+
     shopping_report = {}  # Словарь для накопления информации о покупках
-    account_saldo = 0  # Остаток на счете
+    if os.path.exists("shopping_data.txt"):
+         with open("shopping_data.txt","rb") as g:
+           shopping_report= pickle.load(g)
+
     while True:
         print('1. пополнение счета')
         print('2. покупка')
@@ -45,15 +59,17 @@ def bank_account():
         choice = input('Выберите пункт меню ')
 
         if choice == '1':
-            deposit_amount=int(input("Введите сумму пополнения счета "))
+            deposit_amount_str = input("Введите сумму пополнения счета ")
+            deposit_amount = int(deposit_amount_str)
             account_saldo += deposit_amount
-            pass
+            Functions.write_to_file(FILE_ACCOUNT,account_saldo)
         elif choice == '2':
             purchase_amount = int(input("Введите сумму покупки "))
             if purchase_amount <= account_saldo:
                 purchase_name = input("Введите название покупки ")
                 account_saldo -= purchase_amount
                 shopping_report[purchase_name] = purchase_amount
+                Functions.write_to_file(FILE_ACCOUNT, account_saldo)
             else:
                 print("Недостаточно средств на счете")
             pass
@@ -61,8 +77,11 @@ def bank_account():
             print(shopping_report)
             pass
         elif choice == '4':
+            with open("shopping_data.txt","wb") as f1:
+                pickle.dump(shopping_report,f1,)
             break
         else:
             print('Неверный пункт меню')
+
 
 
