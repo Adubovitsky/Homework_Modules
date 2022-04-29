@@ -36,11 +36,7 @@ def game_victorina():
     right_answers = 0 # Переменная, в которой будут накапливаться количество правильных ответов
     for i in five_people:
         print(i)
-        if input()==Birthdays[i]:
-            right_answers=right_answers+1 # переменная для подсчета количества правильных ответов
-        else:
-            print(correct_answer(Birthdays,i))
-
+        right_answers=right_answers+1 if input()==Birthdays[i] else print(correct_answer(Birthdays,i))
     print("У Вас ", right_answers,' правильных ответа. Попробуйте еще раз')
 
 

@@ -3,10 +3,7 @@ import os
 import pickle
 
 def check_numbers(x): #Функция проверяет является ли аргумент больше нуля или нет
-    if x >0:
-        return True
-    else:
-        return False
+    return True if x>0 else False
 
 def write_to_file(file,data):# Функция преобразует данные в формат строки и записывает в файл
     f=open(file,"w")
@@ -15,18 +12,19 @@ def write_to_file(file,data):# Функция преобразует данны�
 
 def make_filelist(path): #Функция формирует список файлов, находящихся в указанной директории
     all_object_list=os.listdir(path)
-    file_list = []
-    for i in all_object_list:
-        if os.path.isfile(i)==True:
-            file_list.append(i)
+    file_list = [i for i in all_object_list if os.path.isfile(i)==True]
+    # file_list = []
+    # for i in all_object_list:
+    #     if os.path.isfile(i)==True:
+    #         file_list.append(i)
     return file_list
 
 def make_folderlist(path): #Функция формирует список папок, находящихся в указанной директории
     all_object_list=os.listdir(path)
-    folder_list = []
-    for i in all_object_list:
-        if os.path.isdir(i)==True:
-            folder_list.append(i)
+    folder_list = [i for i in all_object_list if os.path.isdir(i)==True]
+    # for i in all_object_list:
+    #     if os.path.isdir(i)==True:
+    #         folder_list.append(i)
     return folder_list
 
 def remove_symbols(string, symbols): #Функция удаляет некоторые символы строки
@@ -34,3 +32,9 @@ def remove_symbols(string, symbols): #Функция удаляет некото
         if i in symbols:
             string = string.replace(i,"")
     return string
+
+def read_file(file):
+    f=open(file,"r")
+    saldo_in_file = int(f.read())
+    f.close()
+    return saldo_in_file

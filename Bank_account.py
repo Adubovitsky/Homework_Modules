@@ -39,13 +39,7 @@ import Functions
 
 def bank_account():
     FILE_ACCOUNT = "account_balance.txt"
-    if os.path.exists(FILE_ACCOUNT):
-        f=open(FILE_ACCOUNT,"r")
-        account_saldo = int(f.read())  # Остаток на счете
-        f.close()
-    else:
-        account_saldo = 0
-
+    account_saldo = Functions.read_file(FILE_ACCOUNT) if os.path.exists(FILE_ACCOUNT) else 0
     shopping_report = {}  # Словарь для накопления информации о покупках
     if os.path.exists("shopping_data.txt"):
          with open("shopping_data.txt","rb") as g:
@@ -59,20 +53,27 @@ def bank_account():
         choice = input('Выберите пункт меню ')
 
         if choice == '1':
-            deposit_amount_str = input("Введите сумму пополнения счета ")
-            deposit_amount = int(deposit_amount_str)
-            account_saldo += deposit_amount
-            Functions.write_to_file(FILE_ACCOUNT,account_saldo)
-        elif choice == '2':
-            purchase_amount = int(input("Введите сумму покупки "))
-            if purchase_amount <= account_saldo:
-                purchase_name = input("Введите название покупки ")
-                account_saldo -= purchase_amount
-                shopping_report[purchase_name] = purchase_amount
-                Functions.write_to_file(FILE_ACCOUNT, account_saldo)
+            try:
+                deposit_amount_str = input("Введите сумму пополнения счета ")
+                deposit_amount = int(deposit_amount_str)
+            except ValueError:
+                print("Введенное значение не является числом")
             else:
-                print("Недостаточно средств на счете")
-            pass
+                account_saldo += deposit_amount
+                Functions.write_to_file(FILE_ACCOUNT,account_saldo)
+        elif choice == '2':
+            try:
+                purchase_amount = int(input("Введите сумму покупки "))
+            except ValueError:
+                print("Введенное значение не является числом")
+            else:
+                if purchase_amount <= account_saldo:
+                    purchase_name = input("Введите название покупки ")
+                    account_saldo -= purchase_amount
+                    shopping_report[purchase_name] = purchase_amount
+                    Functions.write_to_file(FILE_ACCOUNT, account_saldo)
+                else:
+                    print("Недостаточно средств на счете")
         elif choice == '3':
             print(shopping_report)
             pass
@@ -83,5 +84,5 @@ def bank_account():
         else:
             print('Неверный пункт меню')
 
-
+#bank_account()
 
